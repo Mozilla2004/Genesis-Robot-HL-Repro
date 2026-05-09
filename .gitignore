@@ -8,15 +8,26 @@ __pycache__/
 
 # macOS
 .DS_Store
-.__MACOSX/
+__MACOSX/
 
-# Runs data
+# Runs data (keep structure, ignore results)
+runs/*.csv
+runs/*.jsonl
+runs/*.png
 runs/*.mp4
 runs/*.npz
 runs/*.log
+!runs/.gitkeep
+
+# Archives
+*.zip
+__MACOSX/
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+
+# Jupyter
+.ipynb_checkpoints
