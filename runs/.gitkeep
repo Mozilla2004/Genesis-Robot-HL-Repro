@@ -1,0 +1,5 @@
+# Runs directory
+# This directory contains trial results:
+# - trials.jsonl (per-episode logs)
+# - summary.csv (per-trial summary)
+# - summary_curve.png (performance plot)

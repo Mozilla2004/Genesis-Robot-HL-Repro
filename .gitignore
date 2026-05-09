@@ -1,0 +1,22 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# macOS
+.DS_Store
+.__MACOSX/
+
+# Runs data
+runs/*.mp4
+runs/*.npz
+runs/*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
