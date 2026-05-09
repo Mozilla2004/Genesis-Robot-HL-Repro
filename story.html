@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>一只小猎豹，第一次学会边跑边想</title>
+  <title>一只经典"小猎豹"，还能有什么新故事？</title>
   <style>
     :root {
       --bg: #0b1020;
@@ -441,19 +441,20 @@
   <header class="hero">
     <div class="hero-inner">
       <div>
-        <div class="eyebrow">Genesis-HL · World Model · Meta-thinking · Runtime Layer</div>
-        <h1>一只小猎豹，第一次学会"边跑边想"</h1>
-        <p class="lead">智能不只在模型里，也在运行层中生长。</p>
-        <p>这个页面讲的不是一个机器人跑步冠军，而是一个更小、更开创的故事：当一个智能体开始行动、预测、接收反馈、质疑自己的策略，并把每一轮修正都记录下来，智能运行层就开始显影。</p>
+        <div class="eyebrow">MuJoCo HalfCheetah · Heuristic Learning · Runtime Intelligence</div>
+        <h1>一只经典"小猎豹"，还能有什么新故事？</h1>
+        <p class="lead">MuJoCo HalfCheetah 是具身智能、强化学习和连续控制里的经典任务。一个成熟到不能再成熟的 benchmark，似乎已经很难讲出新东西。</p>
+        <p>但翁家昱的工作提醒我们：创新未必只发生在更大的模型和更重的训练里。可解释步态、姿态规则、在线规划，再加上 AI coding agent 的持续迭代，也能把启发式系统推到接近常见 Deep RL 的结果量级。</p>
+        <p style="margin-top:16px;">Genesis-HL 选择了另一条更小的路：不追高分，不比规模，而是把这个过程拆开，让我们看见一个智能系统如何在运行层中观察反馈、质疑假设、重构搜索空间，并逐步长出更好的行动结构。</p>
       </div>
 
       <aside class="hero-card">
         <div class="label">核心命题</div>
         <div class="statement">世界模型负责预测，元思考负责纠偏，智能运行层负责让纠偏持续发生。</div>
         <div class="triad">
-          <div class="triad-item"><strong>世界模型：</strong><span>如果我这样动，接下来会发生什么？</span></div>
-          <div class="triad-item"><strong>元思考：</strong><span>这个判断错了吗？下一轮该换问题还是换参数？</span></div>
-          <div class="triad-item"><strong>智能运行层：</strong><span>把行动、反馈、诊断、重构、验证组织成闭环。</span></div>
+          <div class="triad-item"><strong>CPG：</strong><span>先给小猎豹一个稳定节拍，让它有基础步态。</span></div>
+          <div class="triad-item"><strong>MPC：</strong><span>再让它在行动前短暂预演未来，学会"边跑边想"。</span></div>
+          <div class="triad-item"><strong>Genesis-HL：</strong><span>把反馈、诊断、重构和验证组织成可审计运行闭环。</span></div>
         </div>
       </aside>
     </div>
@@ -468,15 +469,15 @@
         <div class="concept-grid">
           <div class="concept">
             <div class="icon">C</div>
-            <h3>CPG：身体里的节拍器</h3>
+            <h3>CPG（Central Pattern Generator，中央模式发生器）：身体里的节拍器</h3>
             <p>CPG 可以理解成一种周期步态生成器。它不需要神经网络训练，而是用类似"节奏"的方式控制关节：什么时候抬腿，什么时候发力，前后腿如何错开。</p>
             <div class="simple"><strong>直觉：</strong>像人走路时的基础步伐。它不聪明，但稳定、便宜、可解释。</div>
           </div>
 
           <div class="concept">
             <div class="icon">M</div>
-            <h3>MPC：短视窗里的小型世界模型</h3>
-            <p>MPC 会在真正行动前，先在仿真里试想几种未来：如果接下来几步稍微这样修正，会不会更往前？会不会更稳？然后只执行第一步。</p>
+            <h3>MPC（Model Predictive Control，模型预测控制）：短视窗里的小型世界模型</h3>
+            <p>MPC 会在真正行动前，先用模型或仿真器预测未来几步：如果接下来几步稍微这样修正，会不会更往前？会不会更稳？然后选择当前最合适的一步执行。</p>
             <div class="simple"><strong>直觉：</strong>像一边跑一边快速预演未来几步。它更聪明，但更耗计算。</div>
           </div>
         </div>
