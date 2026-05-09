@@ -389,26 +389,71 @@
       .stats, .runtime-map { grid-template-columns: 1fr; }
       .story, .comparison, .closing { padding: 24px; }
     }
+
+    .framework-section {
+      margin-bottom: 82px;
+    }
+
+    .framework-card {
+      background: #0b1020;
+      border: 1px solid #1e293b;
+      border-radius: 32px;
+      padding: 18px;
+      box-shadow: 0 24px 80px rgba(15,23,42,.18);
+      overflow: hidden;
+    }
+
+    .framework-scroll {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 24px;
+    }
+
+    .framework-scroll svg {
+      display: block;
+      width: 100%;
+      min-width: 1080px;
+      height: auto;
+    }
+
+    .framework-scroll img {
+      display: block;
+      width: 100%;
+      min-width: 1080px;
+      height: auto;
+      border-radius: 24px;
+    }
+
+    @media (max-width: 760px) {
+      .framework-card {
+        padding: 12px;
+        border-radius: 24px;
+      }
+
+      .framework-scroll svg,
+      .framework-scroll img {
+        min-width: 980px;
+      }
+    }
   </style>
 </head>
 <body>
   <header class="hero">
     <div class="hero-inner">
       <div>
-        <div class="eyebrow">MuJoCo HalfCheetah · Heuristic Learning · Runtime Intelligence</div>
-        <h1>一只经典"小猎豹"，还能有什么新故事？</h1>
-        <p class="lead">MuJoCo HalfCheetah 是具身智能、强化学习和连续控制里的经典任务。一个成熟到不能再成熟的 benchmark，似乎已经很难讲出新东西。</p>
-        <p>但翁家昱的工作提醒我们：创新未必只发生在更大的模型和更重的训练里。可解释步态、姿态规则、在线规划，再加上 AI coding agent 的持续迭代，也能把启发式系统推到接近常见 Deep RL 的结果量级。</p>
-        <p style="margin-top:16px;">Genesis-HL 选择了另一条更小的路：不追高分，不比规模，而是把这个过程拆开，让我们看见一个智能系统如何在运行层中观察反馈、质疑假设、重构搜索空间，并逐步长出更好的行动结构。</p>
+        <div class="eyebrow">Genesis-HL · World Model · Meta-thinking · Runtime Layer</div>
+        <h1>一只小猎豹，第一次学会"边跑边想"</h1>
+        <p class="lead">智能不只在模型里，也在运行层中生长。</p>
+        <p>这个页面讲的不是一个机器人跑步冠军，而是一个更小、更开创的故事：当一个智能体开始行动、预测、接收反馈、质疑自己的策略，并把每一轮修正都记录下来，智能运行层就开始显影。</p>
       </div>
 
       <aside class="hero-card">
         <div class="label">核心命题</div>
         <div class="statement">世界模型负责预测，元思考负责纠偏，智能运行层负责让纠偏持续发生。</div>
         <div class="triad">
-          <div class="triad-item"><strong>CPG：</strong><span>先给小猎豹一个稳定节拍，让它有基础步态。</span></div>
-          <div class="triad-item"><strong>MPC：</strong><span>再让它在行动前短暂预演未来，学会"边跑边想"。</span></div>
-          <div class="triad-item"><strong>Genesis-HL：</strong><span>把反馈、诊断、重构和验证组织成可审计运行闭环。</span></div>
+          <div class="triad-item"><strong>世界模型：</strong><span>如果我这样动，接下来会发生什么？</span></div>
+          <div class="triad-item"><strong>元思考：</strong><span>这个判断错了吗？下一轮该换问题还是换参数？</span></div>
+          <div class="triad-item"><strong>智能运行层：</strong><span>把行动、反馈、诊断、重构、验证组织成闭环。</span></div>
         </div>
       </aside>
     </div>
@@ -463,6 +508,190 @@
           <div class="node"><div class="n">03</div><h4>现实反馈</h4><p>return、位移、动作幅度、耗时被记录下来。</p></div>
           <div class="node"><div class="n">04</div><h4>元思考</h4><p>判断失败说明什么：调参数、改 gait，还是加新层？</p></div>
           <div class="node"><div class="n">05</div><h4>运行层重构</h4><p>把下一轮搜索、回归验证、干净对照组织起来。</p></div>
+        </div>
+      </section>
+
+      <section class="framework-section">
+        <h2>把它画成一张运行层框架图</h2>
+        <p class="section-lead">
+          如果说上面的五个节点解释了"智能如何闭环"，那么下面这张图展示的是：
+          这个闭环在小猎豹项目里具体长成了什么样。
+          CPG 负责基础步态，MPC 负责短视窗预测，MuJoCo 提供世界反馈；
+          运行日志、元思考和搜索空间重构，则把每一轮失败和改进变成下一轮行动。
+        </p>
+
+        <div class="framework-card">
+          <div class="framework-scroll">
+            <svg width="1400" height="960" viewBox="0 0 1400 960" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <style>
+                  .bg { fill: #0b1020; }
+                  .panel { fill: #111827; stroke: #334155; stroke-width: 2; }
+                  .panel2 { fill: #1e293b; stroke: #475569; stroke-width: 2; }
+                  .node { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 2; }
+                  .node-blue { fill: #eff6ff; stroke: #2563eb; stroke-width: 2.5; }
+                  .node-green { fill: #ecfdf5; stroke: #059669; stroke-width: 2.5; }
+                  .node-amber { fill: #fffbeb; stroke: #d97706; stroke-width: 2.5; }
+                  .node-violet { fill: #f5f3ff; stroke: #7c3aed; stroke-width: 2.5; }
+                  .node-red { fill: #fef2f2; stroke: #dc2626; stroke-width: 2.5; }
+
+                  .text {
+                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+                    fill: #111827;
+                  }
+                  .white { fill: #f8fafc; }
+                  .muted { fill: #94a3b8; }
+                  .title { font-size: 36px; font-weight: 800; letter-spacing: -1px; }
+                  .subtitle { font-size: 18px; }
+                  .h { font-size: 21px; font-weight: 800; }
+                  .p { font-size: 15px; }
+                  .small { font-size: 13px; }
+
+                  .arrow { stroke: #60a5fa; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+                  .arrow2 { stroke: #34d399; stroke-width: 3; fill: none; marker-end: url(#arrow2); }
+                  .arrow3 { stroke: #f59e0b; stroke-width: 3; fill: none; marker-end: url(#arrow3); }
+                  .dash { stroke-dasharray: 8 8; }
+
+                  .layer-label {
+                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+                    fill: #cbd5e1;
+                    font-size: 15px;
+                    font-weight: 700;
+                    letter-spacing: 1px;
+                  }
+                </style>
+
+                <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+                  <path d="M2,2 L10,6 L2,10 Z" fill="#60a5fa"/>
+                </marker>
+                <marker id="arrow2" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+                  <path d="M2,2 L10,6 L2,10 Z" fill="#34d399"/>
+                </marker>
+                <marker id="arrow3" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+                  <path d="M2,2 L10,6 L2,10 Z" fill="#f59e0b"/>
+                </marker>
+              </defs>
+
+              <rect class="bg" width="1400" height="960"/>
+
+              <!-- Page title -->
+              <text x="70" y="70" class="white title">Genesis-HL 小猎豹项目：智能运行层如何长出来</text>
+              <text x="72" y="105" class="muted subtitle">HalfCheetah 是舞台，CPG / MPC 是角色，真正被验证的是：智能可以在运行层中生长。</text>
+
+              <!-- Outer Runtime Layer -->
+              <rect x="55" y="135" width="1290" height="720" rx="34" class="panel"/>
+              <text x="85" y="175" class="white h">智能运行层 Runtime Intelligence Layer</text>
+              <text x="85" y="204" class="muted p">组织行动、预测、反馈、诊断、重构、验证。</text>
+
+              <!-- Layer labels -->
+              <text x="85" y="238" class="layer-label">反馈理解层：观察、诊断、重构</text>
+              <text x="85" y="408" class="layer-label">行动生成层：基础步态、短视窗预测、执行</text>
+              <text x="85" y="662" class="layer-label">世界反馈层：仿真环境与现实反馈</text>
+
+              <!-- Feedback Understanding Layer -->
+              <rect x="135" y="255" width="300" height="120" rx="22" class="node"/>
+              <text x="285" y="296" text-anchor="middle" class="text h">运行日志</text>
+              <text x="285" y="325" text-anchor="middle" class="text p">trials.jsonl / summary.csv</text>
+              <text x="285" y="350" text-anchor="middle" class="text small">让每次运行留下证据</text>
+
+              <rect x="555" y="255" width="290" height="120" rx="22" class="node-red"/>
+              <text x="700" y="296" text-anchor="middle" class="text h">元思考 / 诊断层</text>
+              <text x="700" y="325" text-anchor="middle" class="text p">failure_hint / 审计 / 问题重构</text>
+              <text x="700" y="350" text-anchor="middle" class="text small">判断"问题定义是否错了"</text>
+
+              <rect x="970" y="255" width="300" height="120" rx="22" class="node"/>
+              <text x="1120" y="296" text-anchor="middle" class="text h">搜索空间重构</text>
+              <text x="1120" y="325" text-anchor="middle" class="text p">parameter sweep / gait search / regression</text>
+              <text x="1120" y="350" text-anchor="middle" class="text small">反馈改变下一轮探索什么</text>
+
+              <!-- Action Generation Layer -->
+              <rect x="140" y="455" width="285" height="145" rx="24" class="node-blue"/>
+              <text x="282" y="495" text-anchor="middle" class="text h">CPG 基础步态层</text>
+              <text x="282" y="525" text-anchor="middle" class="text p">Central Pattern Generator</text>
+              <text x="282" y="552" text-anchor="middle" class="text small">身体里的节拍器：稳定、便宜、可解释</text>
+              <text x="282" y="578" text-anchor="middle" class="text small">v0.3.4：形成 stable base gait</text>
+
+              <rect x="560" y="425" width="280" height="175" rx="24" class="node-violet"/>
+              <text x="700" y="465" text-anchor="middle" class="text h">MPC 短视窗预测层</text>
+              <text x="700" y="495" text-anchor="middle" class="text p">Model Predictive Control</text>
+              <text x="700" y="522" text-anchor="middle" class="text small">在行动前预演未来几步</text>
+              <text x="700" y="547" text-anchor="middle" class="text small">base action + residual search</text>
+              <text x="700" y="573" text-anchor="middle" class="text small">v0.4.6：MPC 短中程优于 CPG</text>
+
+              <rect x="980" y="455" width="285" height="145" rx="24" class="node-amber"/>
+              <text x="1122" y="495" text-anchor="middle" class="text h">行动执行层</text>
+              <text x="1122" y="525" text-anchor="middle" class="text p">Execute first action</text>
+              <text x="1122" y="552" text-anchor="middle" class="text small">不执行全部未来，只执行当前最优一步</text>
+              <text x="1122" y="578" text-anchor="middle" class="text small">下一步重新预测、重新选择</text>
+
+              <!-- World / Environment Layer -->
+              <rect x="490" y="685" width="420" height="120" rx="24" class="node-green"/>
+              <text x="700" y="725" text-anchor="middle" class="text h">MuJoCo HalfCheetah</text>
+              <text x="700" y="755" text-anchor="middle" class="text p">真实仿真环境：身体、关节、动力学、reward、位移</text>
+              <text x="700" y="782" text-anchor="middle" class="text small">世界反馈：return / x displacement / action stats / wall time</text>
+
+              <!-- Action flow arrows -->
+              <path d="M425 527 C480 520, 510 515, 560 512" class="arrow"/>
+              <text x="485" y="500" class="muted small">base action</text>
+
+              <path d="M840 512 C900 518, 925 524, 980 527" class="arrow"/>
+              <text x="875" y="500" class="muted small">best residual action</text>
+
+              <path d="M1122 600 C1080 660, 970 720, 910 745" class="arrow2"/>
+              <text x="1038" y="675" class="muted small">execute</text>
+
+              <!-- Environment feedback back to CPG / logs -->
+              <path d="M490 745 C380 735, 305 675, 282 600" class="arrow2"/>
+              <text x="330" y="690" class="muted small">environment feedback</text>
+
+              <path d="M700 685 C625 640, 505 605, 425 560" class="arrow2 dash"/>
+              <text x="505" y="640" class="muted small">reward / 位移 / 姿态</text>
+
+              <!-- Feedback understanding arrows -->
+              <path d="M285 455 C260 420, 260 395, 285 375" class="arrow3"/>
+              <text x="205" y="420" class="muted small">记录</text>
+
+              <path d="M435 315 C485 315, 505 315, 555 315" class="arrow3"/>
+              <text x="470" y="300" class="muted small">可观察</text>
+
+              <path d="M845 315 C895 315, 920 315, 970 315" class="arrow3"/>
+              <text x="890" y="300" class="muted small">可诊断</text>
+
+              <path d="M1120 375 C1110 405, 1110 430, 1122 455" class="arrow3"/>
+              <text x="1138" y="420" class="muted small">下一轮结构</text>
+
+              <!-- Meta-reconstruction arrows to action layers -->
+              <path d="M970 345 C890 385, 815 410, 760 425" class="arrow3 dash"/>
+              <text x="830" y="398" class="muted small">接入新层：MPC</text>
+
+              <path d="M555 345 C485 385, 395 420, 330 455" class="arrow3 dash"/>
+              <text x="418" y="405" class="muted small">重构策略：gait / phase</text>
+
+              <!-- Growth path footer -->
+              <rect x="85" y="875" width="1230" height="65" rx="24" class="panel2"/>
+              <text x="110" y="914" class="white h">框架是怎么长出来的：</text>
+
+              <text x="315" y="914" class="muted p">v0.1 可运行</text>
+              <path d="M410 909 L460 909" class="arrow"/>
+
+              <text x="475" y="914" class="muted p">v0.2 可反馈</text>
+              <path d="M570 909 L620 909" class="arrow"/>
+
+              <text x="635" y="914" class="muted p">v0.3 可诊断 / 可收缩</text>
+              <path d="M815 909 L865 909" class="arrow"/>
+
+              <text x="880" y="914" class="muted p">v0.3.4 可验证</text>
+              <path d="M1010 909 L1060 909" class="arrow"/>
+
+              <text x="1075" y="914" class="muted p">v0.4.6 可分层 / 可对照</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="note">
+          这张图的重点不是某一个算法，而是层与层之间的关系：
+          CPG 让它先能跑，MPC 让它边跑边想，元思考让系统知道为什么要改，
+          智能运行层让这些改动持续发生。
         </div>
       </section>
 
