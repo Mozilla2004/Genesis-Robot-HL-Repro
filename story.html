@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Genesis Robot HL Repro v0.4.6 — Auditable Runtime Learning Demo</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel-2: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #a78bfa;
+      --good: #34d399;
+      --warn: #fbbf24;
+      --line: rgba(148, 163, 184, 0.25);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(56, 189, 248, 0.18), transparent 32%),
+        radial-gradient(circle at 90% 15%, rgba(167, 139, 250, 0.18), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 56px 24px 72px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      border-radius: 999px;
+      color: #bae6fd;
+      background: rgba(56, 189, 248, 0.08);
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(36px, 6vw, 68px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      font-size: 22px;
+      color: #cbd5e1;
+      max-width: 780px;
+      margin: 0 0 24px;
+    }
+
+    .hero-note {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 720px;
+    }
+
+    .metric-card {
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.25);
+    }
+
+    .metric-card h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .big-number {
+      font-size: 56px;
+      line-height: 1;
+      font-weight: 800;
+      color: var(--good);
+      letter-spacing: -0.04em;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .mini {
+      padding: 14px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
+
+    .mini .label { color: var(--muted); font-size: 13px; }
+    .mini .value { font-size: 22px; font-weight: 700; }
+
+    section { margin-top: 46px; }
+
+    .section-title {
+      font-size: 30px;
+      line-height: 1.2;
+      margin: 0 0 18px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-lead {
+      color: #cbd5e1;
+      font-size: 18px;
+      max-width: 850px;
+      margin-bottom: 22px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: rgba(17, 24, 39, 0.82);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+    }
+
+    .step {
+      position: relative;
+      padding: 18px 14px;
+      min-height: 140px;
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+    }
+
+    .step .v {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .step .t {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .step .d {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .compare {
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 16px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      color: #cbd5e1;
+      background: rgba(30, 41, 59, 0.75);
+      font-size: 14px;
+    }
+
+    td { color: #e5e7eb; }
+    tr:last-child td { border-bottom: none; }
+    .green { color: var(--good); font-weight: 800; }
+    .yellow { color: var(--warn); font-weight: 700; }
+
+    .quote {
+      border-left: 4px solid var(--accent);
+      padding: 18px 24px;
+      background: rgba(56, 189, 248, 0.08);
+      border-radius: 0 20px 20px 0;
+      color: #dbeafe;
+      font-size: 20px;
+    }
+
+    .footer {
+      margin-top: 56px;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid var(--line);
+      padding-top: 24px;
+    }
+
+    @media (max-width: 920px) {
+      .hero { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: 1fr; }
+      .flow { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 560px) {
+      .flow { grid-template-columns: 1fr; }
+      .metric-grid { grid-template-columns: 1fr; }
+      th, td { padding: 12px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <div class="badge">Genesis Robot HL Repro v0.4.6</div>
+        <h1>让机器人控制策略<br/>在反馈中长出来</h1>
+        <p class="subtitle">一个小型、可审计的 MuJoCo HalfCheetah 运行时学习 demo。</p>
+        <p class="hero-note">它不是为了刷榜，也不是为了复现大团队的高分结果。它展示的是另一件事：一个启发式机器人控制器，如何通过日志、诊断、步态搜索、回归验证和轻量 residual MPC，一步步形成可解释改进。</p>
+      </div>
+
+      <div class="metric-card">
+        <h2>当前 clean comparison</h2>
+        <div class="big-number">MPC &gt; CPG</div>
+        <p class="hero-note">在 100 / 300 steps 的短中程测试中，轻量 residual MPC 相比 pure CPG base gait 取得更高 return 与更大位移。</p>
+        <div class="metric-grid">
+          <div class="mini"><div class="label">100 steps return</div><div class="value">7.06 vs 3.53</div></div>
+          <div class="mini"><div class="label">300 steps return</div><div class="value">15.84 vs 11.00</div></div>
+          <div class="mini"><div class="label">100 steps x-disp</div><div class="value">0.405 vs 0.231</div></div>
+          <div class="mini"><div class="label">300 steps x-disp</div><div class="value">0.950 vs 0.716</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">这个 demo 想证明什么？</h2>
+      <p class="section-lead">传统路线通常把智能沉淀在神经网络权重里。Genesis-HL 想显影另一种可能：智能也可以发生在运行层，在策略、反馈、诊断、重构和验证之间逐步形成。</p>
+      <div class="cards">
+        <div class="card">
+          <h3>不是 SOTA 结果</h3>
+          <p>我们不追求 HalfCheetah 高分，也不和大团队比规模与速度。这里关注的是机制显影。</p>
+        </div>
+        <div class="card">
+          <h3>是可审计闭环</h3>
+          <p>每一轮改变都有日志、指标、失败解释和下一步判断，而不是黑箱试错。</p>
+        </div>
+        <div class="card">
+          <h3>是智能运行层样机</h3>
+          <p>从固定步态到短视窗规划，展示智能体如何在运行过程中接收反馈并分层修正。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">从 v0.1 到 v0.4.6：一条反馈收缩路径</h2>
+      <div class="flow">
+        <div class="step"><div class="v">v0.1</div><div class="t">搭实验壳</div><div class="d">random / CPG / 日志 / summary / failure_hint</div></div>
+        <div class="step"><div class="v">v0.2</div><div class="t">参数扫描</div><div class="d">发现"放大动作"不是正确方向</div></div>
+        <div class="step"><div class="v">v0.3</div><div class="t">搜索步态</div><div class="d">alternating gait 开始产生正向位移</div></div>
+        <div class="step"><div class="v">v0.3.4</div><div class="t">多 seed 验证</div><div class="d">确认稳定正回报 base gait</div></div>
+        <div class="step"><div class="v">v0.4</div><div class="t">接入 MPC</div><div class="d">在 base gait 上加入 residual planning layer</div></div>
+        <div class="step"><div class="v">v0.4.6</div><div class="t">干净对照</div><div class="d">CPG vs MPC，短中程 MPC 胜出</div></div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Clean Comparison：CPG vs MPC</h2>
+      <p class="section-lead">同一个 HalfCheetah-v5 任务，同一个 seed。CPG 是稳定 base gait；MPC 是在 base gait 上加入轻量 residual planning。</p>
+      <div class="compare">
+        <table>
+          <thead>
+            <tr>
+              <th>Horizon</th>
+              <th>Policy</th>
+              <th>Return</th>
+              <th>X Displacement</th>
+              <th>Interpretation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>100 steps</td><td>CPG ft015</td><td>3.53</td><td>0.231</td><td>稳定 base gait</td></tr>
+            <tr><td>100 steps</td><td>MPC mpc_004</td><td class="green">7.06</td><td class="green">0.405</td><td>短程收益明显</td></tr>
+            <tr><td>300 steps</td><td>CPG ft015</td><td>11.00</td><td>0.716</td><td>持续前进</td></tr>
+            <tr><td>300 steps</td><td>MPC mpc_004</td><td class="green">15.84</td><td class="green">0.950</td><td>中程仍有增益</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">商业上它说明什么？</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>降低试错成本</h3>
+          <p>不是一次性赌一个大模型，而是用小步实验判断：该调参数、改结构，还是加规划层。</p>
+        </div>
+        <div class="card">
+          <h3>降低解释成本</h3>
+          <p>管理层、LLM 团队、机器人团队可以围绕同一组日志和对照结果讨论下一步。</p>
+        </div>
+        <div class="card">
+          <h3>形成 PoC 方法</h3>
+          <p>用低成本 demo 验证智能运行层是否值得继续投入，而不是直接进入重工程。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="quote">传统路线证明"模型可以被训练得很强"；翁家昱路线证明"启发式系统在 coding agent 加持下也可以长得很强"；Genesis-HL 路线试图证明：智能生长的过程本身，可以被结构化、日志化、审计化，并转化为一个可运行的小样机。</div>
+    </section>
+
+    <div class="footer">
+      Genesis Robot HL Repro v0.4.6 · Small auditable runtime-learning demo · MuJoCo HalfCheetah · CPG/PD + Lightweight Residual MPC
+    </div>
+  </main>
+</body>
+</html>
