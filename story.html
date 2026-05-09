@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>一只小猎豹怎样学会往前跑 — Genesis Robot HL Repro v0.4.6</title>
+  <title>一只小猎豹，第一次学会边跑边想</title>
   <style>
     :root {
       --bg: #0b1020;
-      --paper: #f8fafc;
+      --bg2: #111827;
+      --paper: #fbfcff;
       --ink: #111827;
       --muted: #64748b;
-      --soft: #e2e8f0;
+      --line: #e5e7eb;
       --blue: #2563eb;
       --cyan: #0891b2;
       --green: #059669;
       --amber: #d97706;
       --violet: #7c3aed;
-      --dark: #0f172a;
+      --red: #dc2626;
     }
 
     * { box-sizing: border-box; }
@@ -24,238 +25,317 @@
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-      background: #0b1020;
+      background: var(--paper);
       color: var(--ink);
       line-height: 1.72;
     }
 
     .hero {
-      min-height: 86vh;
+      min-height: 92vh;
       display: grid;
       place-items: center;
+      padding: 56px 24px;
       color: white;
       background:
-        linear-gradient(130deg, rgba(11,16,32,0.88), rgba(15,23,42,0.74)),
-        radial-gradient(circle at 18% 25%, rgba(37,99,235,0.38), transparent 32%),
-        radial-gradient(circle at 78% 20%, rgba(8,145,178,0.30), transparent 30%),
-        radial-gradient(circle at 50% 85%, rgba(124,58,237,0.28), transparent 32%),
+        linear-gradient(120deg, rgba(11,16,32,.94), rgba(15,23,42,.74)),
+        radial-gradient(circle at 14% 18%, rgba(37,99,235,.42), transparent 34%),
+        radial-gradient(circle at 82% 24%, rgba(8,145,178,.30), transparent 30%),
+        radial-gradient(circle at 55% 92%, rgba(124,58,237,.32), transparent 34%),
         #0b1020;
-      padding: 56px 24px;
     }
 
     .hero-inner {
       width: min(1120px, 100%);
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 42px;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 48px;
       align-items: center;
     }
 
     .eyebrow {
-      display: inline-flex;
-      gap: 8px;
-      align-items: center;
+      display: inline-block;
       padding: 7px 13px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.18);
       color: #dbeafe;
-      background: rgba(255,255,255,0.08);
       font-size: 14px;
       margin-bottom: 22px;
     }
 
     h1 {
-      font-size: clamp(42px, 7vw, 82px);
+      margin: 0 0 24px;
+      font-size: clamp(44px, 7vw, 86px);
       line-height: 1.02;
-      letter-spacing: -0.055em;
-      margin: 0 0 22px;
+      letter-spacing: -.06em;
     }
 
     .lead {
-      font-size: clamp(20px, 2.1vw, 28px);
+      font-size: clamp(20px, 2.2vw, 29px);
       color: #dbeafe;
       max-width: 760px;
-      margin: 0 0 26px;
+      margin: 0 0 22px;
     }
 
-    .hero-p {
+    .hero p {
       color: #cbd5e1;
-      max-width: 720px;
       font-size: 17px;
+      max-width: 720px;
       margin: 0;
     }
 
-    .result-card {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 32px;
-      padding: 28px;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 28px 90px rgba(0,0,0,0.3);
+    .hero-card {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 34px;
+      padding: 30px;
+      box-shadow: 0 28px 100px rgba(0,0,0,.32);
+      backdrop-filter: blur(18px);
     }
 
-    .result-title { color: #bfdbfe; font-size: 15px; margin-bottom: 10px; }
-    .result-main { font-size: 42px; line-height: 1.05; font-weight: 850; letter-spacing: -0.04em; }
-    .result-sub { color: #cbd5e1; margin: 14px 0 0; }
+    .hero-card .label {
+      color: #93c5fd;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
 
-    .stats {
+    .hero-card .statement {
+      margin-top: 12px;
+      font-size: 34px;
+      line-height: 1.15;
+      letter-spacing: -.035em;
+      font-weight: 850;
+    }
+
+    .triad {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
       gap: 12px;
-      margin-top: 22px;
+      margin-top: 24px;
     }
 
-    .stat {
-      background: rgba(15,23,42,0.58);
-      border: 1px solid rgba(255,255,255,0.10);
+    .triad-item {
+      background: rgba(15,23,42,.62);
+      border: 1px solid rgba(255,255,255,.11);
       border-radius: 18px;
-      padding: 15px;
+      padding: 14px 16px;
     }
-    .stat small { display:block; color:#93c5fd; margin-bottom:4px; }
-    .stat strong { font-size: 22px; }
 
-    main {
-      background: var(--paper);
-    }
+    .triad-item strong { color: white; }
+    .triad-item span { color: #cbd5e1; }
+
+    main { background: var(--paper); }
 
     .wrap {
-      width: min(1040px, calc(100% - 40px));
+      width: min(1060px, calc(100% - 40px));
       margin: 0 auto;
-      padding: 72px 0;
+      padding: 74px 0;
     }
 
-    section { margin-bottom: 76px; }
+    section { margin-bottom: 82px; }
 
     h2 {
-      font-size: clamp(30px, 4.2vw, 52px);
-      line-height: 1.12;
-      letter-spacing: -0.045em;
       margin: 0 0 18px;
-      color: var(--dark);
+      font-size: clamp(32px, 4.5vw, 56px);
+      line-height: 1.12;
+      letter-spacing: -.048em;
+      color: var(--bg2);
     }
 
     .section-lead {
-      font-size: 20px;
+      max-width: 880px;
       color: #334155;
-      max-width: 860px;
+      font-size: 20px;
       margin: 0 0 30px;
     }
 
-    .story-block {
+    .story {
       display: grid;
-      grid-template-columns: 0.72fr 1.28fr;
+      grid-template-columns: .72fr 1.28fr;
       gap: 30px;
       align-items: start;
-      padding: 32px;
+      padding: 34px;
       background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 30px;
-      box-shadow: 0 20px 60px rgba(15,23,42,0.07);
-      margin-top: 22px;
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      box-shadow: 0 20px 70px rgba(15,23,42,.07);
+      margin-top: 24px;
     }
 
-    .chapter {
+    .kicker {
       color: var(--blue);
-      font-weight: 800;
-      font-size: 14px;
-      letter-spacing: 0.08em;
+      font-size: 13px;
+      font-weight: 900;
       text-transform: uppercase;
+      letter-spacing: .12em;
       margin-bottom: 8px;
     }
 
-    .story-block h3 {
-      font-size: 28px;
-      line-height: 1.18;
-      letter-spacing: -0.025em;
+    .story h3 {
       margin: 0;
-      color: var(--dark);
+      font-size: 30px;
+      line-height: 1.18;
+      letter-spacing: -.03em;
     }
 
-    .story-block p { margin: 0 0 16px; color: #334155; font-size: 17px; }
-    .story-block p:last-child { margin-bottom: 0; }
+    .story p { margin: 0 0 16px; color: #334155; font-size: 17px; }
+    .story p:last-child { margin-bottom: 0; }
 
-    .turning {
+    .note {
+      margin-top: 20px;
+      padding: 20px 22px;
+      border-radius: 0 22px 22px 0;
       border-left: 5px solid var(--amber);
       background: #fffbeb;
-      padding: 20px 24px;
-      border-radius: 0 20px 20px 0;
       color: #78350f;
       font-size: 19px;
-      margin-top: 20px;
     }
 
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 26px;
+    }
+
+    .concept {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow: 0 18px 58px rgba(15,23,42,.06);
+      min-height: 310px;
+    }
+
+    .concept .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 900;
+      margin-bottom: 18px;
+      background: var(--blue);
+    }
+
+    .concept:nth-child(2) .icon { background: var(--violet); }
+    .concept h3 { margin: 0 0 10px; font-size: 28px; letter-spacing: -.025em; }
+    .concept p { color: #475569; margin: 0 0 16px; }
+
+    .simple {
+      background: #f1f5f9;
+      border-radius: 18px;
+      padding: 16px;
+      color: #334155;
+      font-size: 16px;
+    }
+
+    .vs {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 28px;
+    }
+
+    .vs-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow: 0 18px 58px rgba(15,23,42,.06);
+    }
+
+    .vs-card h3 { margin: 0 0 12px; font-size: 30px; letter-spacing: -.035em; }
+    .vs-card p { margin: 0 0 14px; color: #475569; }
+    .vs-card ul { margin: 14px 0 0; padding-left: 22px; color: #334155; }
+    .vs-card li { margin-bottom: 8px; }
+
+    .vs-mid {
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      color: var(--muted);
+      font-size: 22px;
+    }
+
+    .runtime-map {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .node {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px 16px;
+      min-height: 160px;
+      box-shadow: 0 16px 45px rgba(15,23,42,.05);
+    }
+
+    .node .n {
+      color: var(--cyan);
+      font-weight: 900;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .node h4 { margin: 0 0 8px; font-size: 19px; }
+    .node p { margin: 0; color: #64748b; font-size: 15px; }
+
     .timeline {
-      position: relative;
       display: grid;
       gap: 16px;
-      margin-top: 34px;
+      margin-top: 28px;
     }
 
     .event {
       display: grid;
-      grid-template-columns: 110px 1fr;
+      grid-template-columns: 120px 1fr;
       gap: 18px;
       align-items: stretch;
     }
 
     .version {
-      border-radius: 20px;
-      background: var(--dark);
+      background: var(--bg2);
       color: white;
+      border-radius: 20px;
       display: grid;
       place-items: center;
-      font-weight: 850;
-      letter-spacing: -0.02em;
+      font-weight: 900;
+      font-size: 18px;
     }
 
     .event-body {
       background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 22px;
-      padding: 22px;
-      box-shadow: 0 14px 40px rgba(15,23,42,0.05);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px 24px;
+      box-shadow: 0 14px 40px rgba(15,23,42,.05);
     }
 
-    .event-body h4 { margin: 0 0 8px; font-size: 22px; color: var(--dark); }
+    .event-body h4 { margin: 0 0 7px; font-size: 22px; }
     .event-body p { margin: 0; color: #475569; }
 
-    .data-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-      margin-top: 26px;
-    }
-
-    .data-card {
+    .comparison {
       background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 28px;
-      padding: 26px;
-      box-shadow: 0 18px 50px rgba(15,23,42,0.06);
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      padding: 30px;
+      box-shadow: 0 20px 70px rgba(15,23,42,.07);
+      margin-top: 28px;
+      overflow-x: auto;
     }
 
-    .data-card h3 { margin: 0 0 18px; font-size: 26px; }
-
-    .row {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      border-top: 1px solid #e5e7eb;
-      padding: 14px 0;
-      color: #334155;
-    }
-    .row:first-of-type { border-top: none; }
-    .row strong { color: var(--green); font-size: 20px; }
-
-    .insight {
-      background: #ecfeff;
-      border: 1px solid #bae6fd;
-      color: #164e63;
-      border-radius: 26px;
-      padding: 26px;
-      font-size: 20px;
-      margin-top: 26px;
-    }
+    table { width: 100%; border-collapse: collapse; min-width: 760px; }
+    th, td { padding: 15px 16px; text-align: left; border-bottom: 1px solid var(--line); }
+    th { color: #475569; font-size: 14px; background: #f8fafc; }
+    tr:last-child td { border-bottom: none; }
+    .win { color: var(--green); font-weight: 900; }
+    .cost { color: var(--amber); font-weight: 700; }
 
     .business {
       display: grid;
@@ -264,54 +344,50 @@
       margin-top: 28px;
     }
 
-    .biz-card {
-      padding: 26px;
-      border-radius: 28px;
-      background: var(--dark);
+    .biz {
+      border-radius: 30px;
+      padding: 28px;
       color: white;
-      min-height: 220px;
+      min-height: 225px;
+      background: var(--bg2);
     }
-    .biz-card:nth-child(2) { background: #0f766e; }
-    .biz-card:nth-child(3) { background: #5b21b6; }
-    .biz-card h3 { margin: 0 0 10px; font-size: 24px; }
-    .biz-card p { color: rgba(255,255,255,0.82); margin: 0; }
+    .biz:nth-child(2) { background: #0f766e; }
+    .biz:nth-child(3) { background: #5b21b6; }
+    .biz h3 { margin: 0 0 12px; font-size: 25px; }
+    .biz p { margin: 0; color: rgba(255,255,255,.84); }
 
     .closing {
-      background: linear-gradient(135deg, #111827, #1e293b);
+      background: linear-gradient(135deg, #0f172a, #1e293b);
       color: white;
-      border-radius: 34px;
-      padding: 44px;
-      box-shadow: 0 24px 80px rgba(15,23,42,0.24);
+      border-radius: 38px;
+      padding: 46px;
+      box-shadow: 0 28px 90px rgba(15,23,42,.25);
     }
-
     .closing h2 { color: white; }
-    .closing p { color: #d1d5db; font-size: 20px; max-width: 900px; }
-
+    .closing p { color: #d1d5db; font-size: 20px; max-width: 920px; }
     .tagline {
-      margin-top: 24px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,0.16);
+      border-top: 1px solid rgba(255,255,255,.16);
+      margin-top: 26px;
+      padding-top: 26px;
+      font-size: 25px;
       color: #bfdbfe;
-      font-size: 24px;
-      font-weight: 800;
-      line-height: 1.35;
+      font-weight: 900;
+      line-height: 1.38;
     }
 
-    footer {
-      color: #94a3b8;
-      font-size: 14px;
-      padding: 28px 0 0;
-    }
+    footer { color: #94a3b8; font-size: 14px; padding-top: 28px; }
 
-    @media (max-width: 900px) {
-      .hero-inner, .story-block, .data-grid, .business { grid-template-columns: 1fr; }
+    @media (max-width: 940px) {
+      .hero-inner, .story, .concept-grid, .vs, .business { grid-template-columns: 1fr; }
+      .vs-mid { display: none; }
+      .runtime-map { grid-template-columns: 1fr 1fr; }
       .event { grid-template-columns: 1fr; }
       .version { padding: 12px; }
     }
 
     @media (max-width: 560px) {
-      .stats { grid-template-columns: 1fr; }
-      .story-block, .closing { padding: 24px; }
+      .stats, .runtime-map { grid-template-columns: 1fr; }
+      .story, .comparison, .closing { padding: 24px; }
     }
   </style>
 </head>
@@ -319,20 +395,19 @@
   <header class="hero">
     <div class="hero-inner">
       <div>
-        <div class="eyebrow">Genesis Robot HL Repro v0.4.6 · MuJoCo HalfCheetah</div>
-        <h1>一只小猎豹，怎样学会往前跑？</h1>
-        <p class="lead">这不是一个刷榜故事，而是一个关于"智能如何在反馈中长出来"的小实验。</p>
-        <p class="hero-p">我们没有训练神经网络，也没有追求 Deep RL 高分。我们做的是一件更小、更白盒的事：让一个启发式机器人控制器，从几乎不会动，到找到稳定步态，再接入短视窗规划，并把每一步失败、转向和改进都留下证据。</p>
+        <div class="eyebrow">Genesis-HL · World Model · Meta-thinking · Runtime Layer</div>
+        <h1>一只小猎豹，第一次学会"边跑边想"</h1>
+        <p class="lead">智能不只在模型里，也在运行层中生长。</p>
+        <p>这个页面讲的不是一个机器人跑步冠军，而是一个更小、更开创的故事：当一个智能体开始行动、预测、接收反馈、质疑自己的策略，并把每一轮修正都记录下来，智能运行层就开始显影。</p>
       </div>
-      <aside class="result-card">
-        <div class="result-title">最终 clean comparison</div>
-        <div class="result-main">短中程测试中，MPC 赢了 CPG</div>
-        <p class="result-sub">不是大胜，不是 SOTA，但它证明 residual planning layer 真的带来了可测量增益。</p>
-        <div class="stats">
-          <div class="stat"><small>100 steps return</small><strong>7.06 vs 3.53</strong></div>
-          <div class="stat"><small>300 steps return</small><strong>15.84 vs 11.00</strong></div>
-          <div class="stat"><small>100 steps 位移</small><strong>0.405 vs 0.231</strong></div>
-          <div class="stat"><small>300 steps 位移</small><strong>0.950 vs 0.716</strong></div>
+
+      <aside class="hero-card">
+        <div class="label">核心命题</div>
+        <div class="statement">世界模型负责预测，元思考负责纠偏，智能运行层负责让纠偏持续发生。</div>
+        <div class="triad">
+          <div class="triad-item"><strong>世界模型：</strong><span>如果我这样动，接下来会发生什么？</span></div>
+          <div class="triad-item"><strong>元思考：</strong><span>这个判断错了吗？下一轮该换问题还是换参数？</span></div>
+          <div class="triad-item"><strong>智能运行层：</strong><span>把行动、反馈、诊断、重构、验证组织成闭环。</span></div>
         </div>
       </aside>
     </div>
@@ -341,133 +416,139 @@
   <main>
     <div class="wrap">
       <section>
-        <h2>故事的起点：不是"跑得多快"，而是"怎么学会跑"</h2>
-        <p class="section-lead">HalfCheetah 是一个经典仿真机器人跑步任务。传统路线会用 Deep RL 大量训练，最后得到高分 policy。翁家昱展示了另一种可能：可解释步态、姿态规则和在线规划，在 AI coding agent 帮助下也能长到很强。</p>
+        <h2>先说清楚：CPG 和 MPC 到底是什么？</h2>
+        <p class="section-lead">这两个词听起来技术，但背后的直觉很简单：一个负责"有节奏地动起来"，另一个负责"边走边试想未来几步"。</p>
 
-        <div class="story-block">
+        <div class="concept-grid">
+          <div class="concept">
+            <div class="icon">C</div>
+            <h3>CPG：身体里的节拍器</h3>
+            <p>CPG 可以理解成一种周期步态生成器。它不需要神经网络训练，而是用类似"节奏"的方式控制关节：什么时候抬腿，什么时候发力，前后腿如何错开。</p>
+            <div class="simple"><strong>直觉：</strong>像人走路时的基础步伐。它不聪明，但稳定、便宜、可解释。</div>
+          </div>
+
+          <div class="concept">
+            <div class="icon">M</div>
+            <h3>MPC：短视窗里的小型世界模型</h3>
+            <p>MPC 会在真正行动前，先在仿真里试想几种未来：如果接下来几步稍微这样修正，会不会更往前？会不会更稳？然后只执行第一步。</p>
+            <div class="simple"><strong>直觉：</strong>像一边跑一边快速预演未来几步。它更聪明，但更耗计算。</div>
+          </div>
+        </div>
+
+        <div class="note">在这个 demo 里，CPG 是基础行动层；MPC 是短视窗预测层。二者合起来，就是"先有稳定步态，再边跑边想"。</div>
+      </section>
+
+      <section>
+        <h2>为什么这不是普通机器人 demo？</h2>
+        <div class="story">
           <div>
-            <div class="chapter">Conflict</div>
-            <h3>我们不打算追大团队的高分。</h3>
+            <div class="kicker">Reframe</div>
+            <h3>真正的主角不是小猎豹，而是运行层。</h3>
           </div>
           <div>
-            <p>翁家昱的结果很强：HalfCheetah 通过可解释规则和在线规划，5 局复测均值达到 11836.7，进入常见 Deep RL 量级。</p>
-            <p>我们没有他的规模、速度和自动化工具链。硬追高分并不现实，也不是架构师最该做的事。</p>
-            <div class="turning">所以我们换了一个问题：能不能用一个小 demo，把"智能如何通过反馈长出来"的过程显影出来？</div>
+            <p>HalfCheetah 只是一个舞台。它让我们能清楚看到：动作有没有让身体前进？失败来自力度、步态结构，还是预测层不够好？</p>
+            <p>传统叙事会问：模型分数多高？Genesis-HL 更关心：系统为什么这样改？反馈如何改变下一轮搜索空间？什么时候该停止调参、转而接入新结构？</p>
+            <div class="note">机器人在跑，真正被验证的是智能运行层。</div>
           </div>
         </div>
       </section>
 
       <section>
-        <h2>第一幕：一开始，它并不会跑</h2>
-        <div class="story-block">
+        <h2>世界模型、元思考、智能运行层如何闭环？</h2>
+        <p class="section-lead">如果只看单个动作，这只是控制问题；如果看整个循环，它就是智能如何生长的问题。</p>
+        <div class="runtime-map">
+          <div class="node"><div class="n">01</div><h4>行动策略</h4><p>CPG 先给出一个稳定、可解释的基础步态。</p></div>
+          <div class="node"><div class="n">02</div><h4>世界预测</h4><p>MPC 用 MuJoCo 在短视窗里预演候选动作。</p></div>
+          <div class="node"><div class="n">03</div><h4>现实反馈</h4><p>return、位移、动作幅度、耗时被记录下来。</p></div>
+          <div class="node"><div class="n">04</div><h4>元思考</h4><p>判断失败说明什么：调参数、改 gait，还是加新层？</p></div>
+          <div class="node"><div class="n">05</div><h4>运行层重构</h4><p>把下一轮搜索、回归验证、干净对照组织起来。</p></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>故事怎样发生：从乱动，到边跑边想</h2>
+        <div class="timeline">
+          <div class="event"><div class="version">v0.1</div><div class="event-body"><h4>先让它留下痕迹</h4><p>random 和初始 CPG 都不强，但日志系统建立起来了。没有日志，就没有反馈；没有反馈，就没有运行层学习。</p></div></div>
+          <div class="event"><div class="version">v0.2</div><div class="event-body"><h4>第一次失败改变了问题</h4><p>放大动作幅度没有变好，反而更差。系统得到第一条重要反馈：不是力度问题，是 gait 结构问题。</p></div></div>
+          <div class="event"><div class="version">v0.3</div><div class="event-body"><h4>找到 alternating gait</h4><p>从 rear drive、front drive、bound 等步态中，alternating 第一次产生明确正向位移。搜索空间开始收缩。</p></div></div>
+          <div class="event"><div class="version">v0.3.4</div><div class="event-body"><h4>稳定 base gait 出现</h4><p>多 seed 回归确认 CPG/PD base gait 稳定正回报。系统不再只是偶然成功，而是得到可复现结构。</p></div></div>
+          <div class="event"><div class="version">v0.4</div><div class="event-body"><h4>接入 residual MPC</h4><p>当 CPG 微调进入平台期，我们不再继续拧参数，而是在稳定步态上接入短视窗规划。</p></div></div>
+          <div class="event"><div class="version">v0.4.6</div><div class="event-body"><h4>形成干净对照</h4><p>同一个环境、同一个 seed，比较 CPG 和 MPC：MPC 在短中程中带来更高 return 和更大位移。</p></div></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Clean comparison：CPG vs MPC</h2>
+        <p class="section-lead">这不是为了证明 MPC 天下无敌，而是为了证明：在稳定 base gait 上增加一个短视窗预测层，确实能产生可测量增益。</p>
+        <div class="comparison">
+          <table>
+            <thead>
+              <tr>
+                <th>测试长度</th>
+                <th>策略</th>
+                <th>Return</th>
+                <th>X 位移</th>
+                <th>耗时含义</th>
+                <th>解释</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>100 steps</td><td>CPG ft015</td><td>3.53</td><td>0.231</td><td>很快</td><td>稳定基础步态</td></tr>
+              <tr><td>100 steps</td><td>MPC mpc_004</td><td class="win">7.06</td><td class="win">0.405</td><td class="cost">更慢</td><td>短程收益明显</td></tr>
+              <tr><td>300 steps</td><td>CPG ft015</td><td>11.00</td><td>0.716</td><td>很快</td><td>持续前进</td></tr>
+              <tr><td>300 steps</td><td>MPC mpc_004</td><td class="win">15.84</td><td class="win">0.950</td><td class="cost">显著更慢</td><td>中程仍有增益</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">结论要克制：MPC 带来更好表现，但代价是更高计算成本。它不是替代 CPG，而是在 CPG 之上的修正层。</div>
+      </section>
+
+      <section>
+        <h2>三条路线怎样互补？</h2>
+        <div class="vs">
+          <div class="vs-card">
+            <h3>传统 RL</h3>
+            <p>用大量环境交互和 reward 优化训练出强 policy。</p>
+            <ul><li>强在性能上限</li><li>弱在解释和研发透明度</li><li>适合最后冲高性能</li></ul>
+          </div>
+          <div class="vs-mid">+</div>
+          <div class="vs-card">
+            <h3>翁家昱 HL</h3>
+            <p>用 coding agent 维护启发式系统，让规则、测试、日志、回放持续生长。</p>
+            <ul><li>强在工程迭代速度</li><li>让 heuristic system 重新有生命力</li><li>适合把复杂系统快速推高</li></ul>
+          </div>
+        </div>
+        <div class="story" style="margin-top:18px;">
           <div>
-            <div class="chapter">Act I</div>
-            <h3>随机策略像是在乱挣扎，CPG 只是让它不那么糟。</h3>
+            <div class="kicker">Genesis-HL</div>
+            <h3>它补上的，是运行层可见性。</h3>
           </div>
           <div>
-            <p>v0.1 做的不是"聪明机器人"，而是实验壳：random baseline、CPG/PD 策略、日志、summary、failure hint。</p>
-            <p>第一次真实跑起来后，random 得分大约 -258.71；默认 CPG 大约 -2.99。CPG 还不会跑，但它已经从"胡乱挣扎"变成了"至少不乱动"。</p>
-            <p>这一步的商业含义很朴素：没有日志，就没有反馈；没有反馈，就没有可管理的学习。</p>
+            <p>Genesis-HL 不追最高分，而是把每一轮为什么失败、为什么转向、为什么接入新层讲清楚。</p>
+            <p>它像一个研发驾驶舱：让 LLM 团队、机器人团队和管理层都能看见智能系统如何从反馈中改进。</p>
           </div>
         </div>
       </section>
 
       <section>
-        <h2>第二幕：第一次失败，反而指出了方向</h2>
-        <div class="story-block">
-          <div>
-            <div class="chapter">Act II</div>
-            <h3>我们以为动作太小，结果发现"加大力度"是错路。</h3>
-          </div>
-          <div>
-            <p>v0.2 做参数扫描，尝试把动作幅度放大。结果越放大越差。</p>
-            <p>这不是坏结果。它告诉我们：问题不是力度不够，而是步态结构不对。</p>
-            <div class="turning">这就是智能运行层的第一条关键反馈：失败不是终点，失败会改变下一轮搜索空间。</div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>第三幕：找到第一个正确结构</h2>
-        <div class="story-block">
-          <div>
-            <div class="chapter">Act III</div>
-            <h3>从调参数，转向搜步态。</h3>
-          </div>
-          <div>
-            <p>v0.3 开始比较不同 gait pattern：rear drive、front drive、alternating、bound……</p>
-            <p>结果 alternating gait 第一次带来明确正向位移。随后我们围绕它继续收缩，发现 phase_speed 是真正的杠杆参数。</p>
-            <p>到 v0.3.4，多 seed 回归确认了一个稳定正回报 base gait；到 v0.3.5，微调收益开始平台化。</p>
-            <div class="turning">这说明纯 CPG/PD 已经接近当前局部上限。下一步，不该继续拧参数，而该加一个新层。</div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>第四幕：给它加一个"边跑边想"的小脑</h2>
-        <div class="story-block">
-          <div>
-            <div class="chapter">Act IV</div>
-            <h3>Residual MPC 接入：不是替代步态，而是在步态上做短视窗修正。</h3>
-          </div>
-          <div>
-            <p>v0.4 开始，系统不再只是固定节律跑。它会先用 CPG 产生 base action，再用 lightweight residual MPC 在短视窗里试几个小修正，选择看起来更好的动作，只执行第一步。</p>
-            <p>这一步踩了很多真实工程坑：环境绑定错了、phase 没推进、float.copy 报错、env.step 污染 wrapper 计数器。</p>
-            <p>这些 bug 不是噪音。它们恰恰说明智能运行层要处理的不只是"策略"，还包括状态复制、相位同步、内部仿真、真实执行边界。</p>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>最后的对照：固定步态 vs 短视窗修正</h2>
-        <p class="section-lead">v0.4.6 形成了一个干净的 comparison：同一个环境，同一个 seed，比较 pure CPG base gait 和 residual MPC。</p>
-        <div class="data-grid">
-          <div class="data-card">
-            <h3>100 steps</h3>
-            <div class="row"><span>CPG return</span><strong>3.53</strong></div>
-            <div class="row"><span>MPC return</span><strong>7.06</strong></div>
-            <div class="row"><span>CPG 位移</span><strong>0.231</strong></div>
-            <div class="row"><span>MPC 位移</span><strong>0.405</strong></div>
-          </div>
-          <div class="data-card">
-            <h3>300 steps</h3>
-            <div class="row"><span>CPG return</span><strong>11.00</strong></div>
-            <div class="row"><span>MPC return</span><strong>15.84</strong></div>
-            <div class="row"><span>CPG 位移</span><strong>0.716</strong></div>
-            <div class="row"><span>MPC 位移</span><strong>0.950</strong></div>
-          </div>
-        </div>
-        <div class="insight">结论很克制：MPC 不是让小猎豹突然变成冠军，但它确实让稳定步态在短中程测试中获得了可测量增益。代价是计算成本显著升高。</div>
-      </section>
-
-      <section>
-        <h2>这条路线的商业意义</h2>
-        <p class="section-lead">Genesis-HL 不卖"最强控制器"。它卖的是一种更早期、更通用的能力：让智能系统的改进过程变得可见、可解释、可验证、可决策。</p>
+        <h2>商业上它说明什么？</h2>
+        <p class="section-lead">这个 demo 的商业价值不是"我有一个机器人控制器"，而是"我有一种低成本验证智能系统运行闭环的方法"。</p>
         <div class="business">
-          <div class="biz-card">
-            <h3>降低试错成本</h3>
-            <p>不用一开始就押注大训练。先用小 demo 判断：问题在参数、结构、反馈，还是需要新规划层。</p>
-          </div>
-          <div class="biz-card">
-            <h3>降低沟通成本</h3>
-            <p>LLM 团队、机器人团队和管理层，可以围绕同一组日志、指标和对照结果讨论下一步。</p>
-          </div>
-          <div class="biz-card">
-            <h3>降低决策风险</h3>
-            <p>每一轮投入前，都能看到上一步为什么失败、为什么转向、下一步验证什么。</p>
-          </div>
+          <div class="biz"><h3>降低试错成本</h3><p>先用小 demo 看清问题在哪里，而不是直接进入大规模训练或重工程。</p></div>
+          <div class="biz"><h3>降低解释成本</h3><p>把结果变成日志、指标、对照和故事，让不同团队能在同一张图上讨论。</p></div>
+          <div class="biz"><h3>降低决策风险</h3><p>每一轮投入前，都知道上一轮反馈如何改变下一步方向。</p></div>
         </div>
       </section>
 
       <section class="closing">
-        <h2>它代表智能运行层的哪个阶段？</h2>
-        <p>当前阶段不是自动智能，也不是高性能机器人控制。它是一个早期但完整的可审计运行闭环：能跑、能反馈、能解释、能收缩、能验证、能分层、能对照。</p>
-        <p>从这个意义上，它不只是一个 HalfCheetah demo，而是一个关于 AI 时代研发方式的小样本。</p>
-        <div class="tagline">翁家昱展示了 Heuristic Learning 可以做到多高；Genesis-HL 展示的是：Heuristic Learning 可以怎样一步步长出来。</div>
+        <h2>所以，这只小猎豹真正展示了什么？</h2>
+        <p>它展示的不是 SOTA 控制能力，而是一种智能运行层的早期形态：可观察、可反馈、可诊断、可收缩、可验证、可分层、可对照。</p>
+        <p>世界模型让它在行动前试想未来；元思考让我们根据反馈质疑原来的假设；智能运行层把这些预测、行动、反馈和修正组织成可持续的研发闭环。</p>
+        <div class="tagline">HalfCheetah 是舞台，CPG/MPC 是角色，真正被验证的是：智能可以在运行层中生长。</div>
       </section>
 
       <footer>
-        Genesis Robot HL Repro v0.4.6 · Small auditable runtime-learning demo · MuJoCo HalfCheetah · CPG/PD + Lightweight Residual MPC
+        Genesis Robot HL Repro v0.4.6 · Auditable Runtime Learning Demo · MuJoCo HalfCheetah · CPG/PD + Lightweight Residual MPC
       </footer>
     </div>
   </main>
