@@ -501,6 +501,45 @@
       </section>
 
       <section>
+        <h2>两个新词：元思考与智能运行层</h2>
+        <p class="section-lead">
+          为了避免把这个 demo 误解成普通控制算法组合，我们先把两个关键词说清楚：
+          元思考不是"想得更久"，智能运行层也不是某个单独模型。
+        </p>
+
+        <div class="concept-grid">
+          <div class="concept">
+            <div class="icon">M</div>
+            <h3>元思考：判断"该怎么改问题"</h3>
+            <p>
+              元思考不是多生成几步推理，而是当反馈出现时，系统能反过来检查自己的假设：
+              这次失败是因为参数不对、结构不对，还是问题定义本身错了？
+            </p>
+            <div class="simple">
+              <strong>在小猎豹项目里：</strong>
+              放大动作失败后，我们没有继续加大力度，而是判断"问题不在力度，而在步态结构"，于是转向 gait search。
+            </div>
+          </div>
+
+          <div class="concept">
+            <div class="icon">R</div>
+            <h3>智能运行层：让改进持续发生的组织层</h3>
+            <p>
+              智能运行层不是 CPG、MPC 或某个神经网络，而是把策略、环境、日志、反馈、诊断、搜索和验证组织起来的运行结构。
+            </p>
+            <div class="simple">
+              <strong>在小猎豹项目里：</strong>
+              run_eval、trials.jsonl、summary.csv、failure_hint、参数扫描、多 seed 回归、CPG vs MPC 对照，共同构成了这个运行层。
+            </div>
+          </div>
+        </div>
+
+        <div class="note">
+          简单说：世界模型负责预测未来，元思考负责判断预测和策略是否需要纠偏，智能运行层负责把这种纠偏变成可重复、可审计的工程闭环。
+        </div>
+      </section>
+
+      <section>
         <h2>世界模型、元思考、智能运行层如何闭环？</h2>
         <p class="section-lead">如果只看单个动作，这只是控制问题；如果看整个循环，它就是智能如何生长的问题。</p>
         <div class="runtime-map">
